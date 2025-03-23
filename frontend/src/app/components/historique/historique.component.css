@@ -1,0 +1,23 @@
+.historique-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .stats {
+    margin-bottom: 20px;
+  }
+  
+  .highlight {
+    color: red;
+    font-weight: bold;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  

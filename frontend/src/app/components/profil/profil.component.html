@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Auto-école</title>
+    <link rel="stylesheet" href="./profil.component.css">
+</head>
+<body>
+<div class="profil-container">
+    <h2>Profil de l'élève</h2><br><br>
+    <div class="profil-content">
+        <section class="section">
+            <h3>Informations personnelles</h3>
+            <ul>
+                <li><strong>Prénom :</strong> <span id="prenom">Jean</span> <input type="text" id="prenomInput"></li>
+                <li><strong>Nom :</strong> <span id="nom">Dupont</span> <input type="text" id="nomInput"></li>
+                <li><strong>Email :</strong> <span id="email">jean.dupontexample.com</span> <input type="email" id="emailInput"></li>
+                <li><strong>Date de naissance :</strong> <span id="dob">12/05/1990</span> <input type="date" id="dobInput"></li>
+                <li><strong>Téléphone :</strong> <span id="telephone">+33 6 12 34 56 78</span> <input type="tel" id="telephoneInput"></li>
+                <li><strong>Adresse :</strong> <span id="adresse">10 rue des Lilas, 75000 Paris</span> <input type="text" id="adresseInput"></li>
+            </ul>
+        </section>
+        <section class="section">
+            <h3>Dossier du candidat</h3>
+            <ul>
+                <li><strong>Numéro de dossier :</strong> <span id="dossier">123456</span> <input type="text" id="dossierInput"></li>
+                <li><strong>Date d'inscription :</strong> <span id="inscription">01/01/2024</span> <input type="date" id="inscriptionInput"></li>
+                <li><strong>Type de permis :</strong> <span id="permis">Permis B</span> <input type="text" id="permisInput"></li>
+                <li><strong>Statut de formation :</strong> <span id="statut">En cours</span> <input type="text" id="statutInput"></li>
+                <li><strong>Heures de conduite effectuées :</strong> <span id="heures">12h / 20h</span> <input type="text" id="heuresInput"></li>
+                <li><strong>Date prévue de l'examen :</strong> <span id="examen">15/06/2024</span> <input type="date" id="examenInput"></li>
+                <li><strong>Moniteur attitré :</strong> <span id="moniteur">M. Martin Lefevre</span> <input type="text" id="moniteurInput"></li>
+            </ul>
+        </section>
+    </div>
+    <div class="buttons">
+        <button id="editBtn">Modifier</button>
+        <button id="saveBtn" style="display:none;">Sauvegarder</button>
+    </div>
+</div>
+</body>
+</html>
