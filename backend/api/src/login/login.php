@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Vérif des identifiants
         $info_identification = verification_identifiant($login, $password, $pdo);
 
-        if ($credentials) {
+        if ($info_identification !== false) {
             $_SESSION['id_user'] = $info_identification['user']['id_user'];
             $_SESSION['Nom'] = $info_identification['user']['Nom'];
             $_SESSION['Prenom'] = $info_identification['user']['Prenom'];
@@ -63,6 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 } else {
     http_response_code(405);
-    echo json_encode(["message" => "Méthode non autorisée"]);
+    echo json_encode(["message" => "Methode non autorisee"]);
 }
 ?>
