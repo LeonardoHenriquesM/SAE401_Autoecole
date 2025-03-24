@@ -1,68 +1,87 @@
 <?php
-//API login
-session_start();
-require "../../config/connexion_db.php";
+// Aucune ligne ni espace avant <?php
 
-header("Content-type: application/json; charset=utf-8");
+// Active l'affichage des erreurs (à désactiver en production)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+// On capture toute sortie pour éviter du texte avant le JSON
+ob_start();
 
-    if (!isset($data['id_user']) || !isset($data['password'])) {
-        http_response_code(400);
-        echo json_encode(["message" => "Champs requis manquants"]);
-        exit();
-    }
+// Headers CORS et JSON
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json; charset=utf-8");
 
-    $login = $data['id_user'];
-    $password = $data['password'];
-
-    try {
-        // Fonction qui vérifie les id
-        function verification_identifiant($login, $password, $pdo) {
-            // Recherche de l'admin
-            $query = $pdo->prepare("SELECT * FROM administrateur WHERE id_user = ?");
-            $query->execute([$login]);
-            $user_admin = $query->fetch(PDO::FETCH_ASSOC);
-
-            // Recherche de l'élève
-            $query = $pdo->prepare("SELECT * FROM eleves WHERE id_user = ?");
-            $query->execute([$login]);
-            $eleve_user = $query->fetch(PDO::FETCH_ASSOC);
-
-            if ($user_admin && password_verify($password, $user_admin['password'])) {
-                return ['type' => 'admin', 'user' => $user_admin];
-            } elseif ($eleve_user && password_verify($password, $eleve_user['password'])) {
-                return ['type' => 'eleve', 'user' => $eleve_user];
-            } else {
-                return false;
-            }
-        }
-
-        // Vérif des identifiants
-        $info_identification = verification_identifiant($login, $password, $pdo);
-
-        if ($info_identification !== false) {
-            $_SESSION['id_user'] = $info_identification['user']['id_user'];
-            $_SESSION['Nom'] = $info_identification['user']['Nom'];
-            $_SESSION['Prenom'] = $info_identification['user']['Prenom'];
-            $_SESSION['type'] = $info_identification['type'];
-
-            if ($info_identification['type'] === 'admin') {
-                echo json_encode(["message" => "Connexion Administrateur réussie"]);
-            } else {
-                echo json_encode(["message" => "Connexion élève réussie"]);
-            }
-        } else {
-            http_response_code(401);
-            echo json_encode(["message" => "Identifiants incorrects"]);
-        }
-    } catch (PDOException $e) {
-        http_response_code(500);
-        echo json_encode(["message" => "Erreur serveur : " . $e->getMessage()]);
-    }
-} else {
-    http_response_code(405);
-    echo json_encode(["message" => "Methode non autorisee"]);
+// Gérer la requête OPTIONS (préflight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
-?>
+
+// Inclusion de la BDD (assure-toi qu'il n'y a pas d'espace avant <?php dedans)
+require_once __DIR__ . "/../../config/connexion_db.php";
+
+// Vérifier la méthode
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    // Nettoyer toute sortie potentielle avant d'envoyer le JSON
+    ob_clean();
+    echo json_encode(["message" => "Méthode non autorisée"]);
+    exit();
+}
+
+// Récupérer les données JSON
+$data = json_decode(file_get_contents('php://input'), true);
+
+// Vérifier les champs requis
+if (!isset($data['id_user'], $data['password'])) {
+    http_response_code(400);
+    ob_clean();
+    echo json_encode(["message" => "Champs requis manquants"]);
+    exit();
+}
+
+$id_user = $data['id_user'];
+$password = $data['password'];
+
+try {
+    // Vérifier l'admin
+    $stmt = $pdo->prepare("SELECT * FROM administrateur WHERE id_user = ?");
+    $stmt->execute([$id_user]);
+    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérifier l'élève
+    $stmt = $pdo->prepare("SELECT * FROM eleves WHERE id_user = ?");
+    $stmt->execute([$id_user]);
+    $eleve = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Avant d'envoyer la réponse JSON, on vide le tampon
+    ob_clean();
+
+    if ($admin && $password === $admin['password']) {
+        echo json_encode([
+            "message" => "Connexion réussie",
+            "type"    => "admin",
+            "id_user" => $admin['id_user'],
+            "nom"     => $admin['Nom'],
+            "prenom"  => $admin['Prenom']
+        ]);
+    } elseif ($eleve && $password === $eleve['password']) {
+        echo json_encode([
+            "message" => "Connexion réussie",
+            "type"    => "eleve",
+            "id_user" => $eleve['id_user'],
+            "nom"     => $eleve['Nom'],
+            "prenom"  => $eleve['Prenom']
+        ]);
+    } else {
+        http_response_code(401);
+        echo json_encode(["message" => "Identifiants incorrects"]);
+    }
+} catch (PDOException $e) {
+    http_response_code(500);
+    ob_clean();
+    echo json_encode(["message" => "Erreur serveur : " . $e->getMessage()]);
+}
