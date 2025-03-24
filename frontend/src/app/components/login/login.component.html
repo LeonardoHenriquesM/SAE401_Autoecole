@@ -17,15 +17,15 @@
         </div>
         <div class="login-container">
             <h2>Connexion</h2>
-            <form>
-                <label for="identifiant">Identifiant</label>
-                <input type="text" id="identifiant" name="identifiant" required>
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <label for="id_user">Identifiant</label>
+                <input type="text" id="id_user" name="id_user" [(ngModel)]="loginData.id_user" required>
                 
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" [(ngModel)]="loginData.password" required>
                 
                 <a href="#" class="forgot-password">Mot de passe oublié ?</a>
-                <button type="submit">Se connecter</button>
+                <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
             </form>
         </div>
     </div>
