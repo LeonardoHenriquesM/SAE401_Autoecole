@@ -1,23 +1,53 @@
 .historique-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .stats {
-    margin-bottom: 20px;
-  }
-  
-  .highlight {
-    color: red;
-    font-weight: bold;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 5px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.graph-container {
+  width: 50%;
+}
+
+.historique-details {
+  width: 45%;
+}
+
+.test-card {
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px 0;
+  background: #f0f0f0;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.test-card:hover {
+  background: #d0d0d0;
+}
+
+.details-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.examen-ok {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.examen-non {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
