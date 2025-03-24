@@ -9,6 +9,7 @@ import { SupportComponent } from './components/support/support.component';
 import { AvisComponent } from './components/avis/avis.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { RdvComponent } from './components/rdv/rdv.component';
 
 const routes: Routes = [
   { path: 'app-home', component: HomeComponent },    
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'rdv', component: RdvComponent },
   { path: 'support', component: SupportComponent },
   { path: '', component: LoginComponent },
 ];
