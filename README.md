@@ -7,6 +7,7 @@ Le projet consiste à développer une interface numérique pour une plateforme d
 - Zaiem Sarah ( En charge de l'identité visuelle du site, maquette et charte graphique )
 - Henriques Leonardo ( Développeur Backend )
 - Buisset Nicolas ( Développeur Frontend )
+- Milan Wiastersheim ( Cas a évoquer en présentiel, problèmes de sérieux )
 
 
 ## MCD pour la base de données
