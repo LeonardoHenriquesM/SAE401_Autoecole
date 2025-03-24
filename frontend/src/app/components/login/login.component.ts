@@ -8,15 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginData = { id_user: '', password: '' };
+  loginData = { prenom: '', password: '' };  // Changement de id_user en prenom
   apiUrl = 'https://api401.alwaysdata.net/backend/api/src/login/login.php';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
     console.log('Tentative de connexion avec les données :', this.loginData);
-    const headers = { 'Content-Type': 'application/json' };
-  
+
     this.http.post(this.apiUrl, this.loginData, {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'text'
@@ -26,15 +25,15 @@ export class LoginComponent {
           const response = JSON.parse(responseText);
           console.log('Réponse reçue :', response);
 
-          // Vérification si l'utilisateur est valide
           if (response.id_user != null) {
             localStorage.setItem('id_user', response.id_user);
+            localStorage.setItem('prenom', response.prenom);  // Stocker le prénom
 
-            // Vérification du type d'utilisateur
+            // Redirection selon le type d'utilisateur
             if (response.type === 'admin') {
-              this.router.navigate(['/dashboard']); // Redirection vers le tableau de bord admin
+              this.router.navigate(['/dashboard']);
             } else if (response.type === 'eleve') {
-              this.router.navigate(['/historique']); // Redirection vers le tableau de bord élève
+              this.router.navigate(['/historique']);
             }
           } else {
             alert('Identifiants incorrects');
