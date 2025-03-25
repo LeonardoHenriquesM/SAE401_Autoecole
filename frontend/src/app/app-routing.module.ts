@@ -14,7 +14,7 @@ import { StatsComponent } from './components/stats/stats.component';
 const routes: Routes = [
   { path: 'stats', component: StatsComponent },   
   { path: 'app-header', component: HeaderComponent },
-  { path: 'historique/:id', component: HistoriqueComponent },
+  { path: 'historique/:id_user', component: HistoriqueComponent },
   { path: 'avis', component: AvisComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profil', component: ProfilComponent },

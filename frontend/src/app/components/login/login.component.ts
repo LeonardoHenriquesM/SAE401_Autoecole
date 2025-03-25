@@ -27,7 +27,22 @@ export class LoginComponent {
         try {
           const response = JSON.parse(responseText);
           console.log('Réponse analysée :', response);
-          // Traitement de la réponse
+          
+          // Vérification si la connexion est réussie
+          if (response.message && response.message.includes("Connexion réussie")) { // Correction ici
+            // Stocker les informations de l'utilisateur dans le localStorage
+            localStorage.setItem('id_user', response.id_user);
+            localStorage.setItem('user_type', response.type);
+            
+            // Redirection en fonction du rôle de l'utilisateur
+            if (response.type === 'admin') {
+              this.router.navigate(['/dashboard']); // Redirection vers le dashboard de l'admin
+            } else if (response.type === 'eleve') {
+              this.router.navigate([`/historique/${response.id_user}`]); // Redirection vers l'historique de l'élève
+            }
+          } else {
+            alert('Echec de connexion : ' + response.message); // Affiche le message d'erreur
+          }
         } catch (e) {
           console.error('Erreur lors du parsing JSON', e);
         }
