@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class StatsService {
-  private apiUrl = 'https://api401.alwaysdata.net/backend/api/src/login/login.php';
+  private apiUrl = 'https://api401.alwaysdata.net/backend/api/stats.php'; // Vérifie que c'est le bon fichier
+
 
   constructor(private http: HttpClient) {}
 
