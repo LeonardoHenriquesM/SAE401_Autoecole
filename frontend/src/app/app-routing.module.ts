@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'app-home', component: HomeComponent },    
   { path: 'stats', component: StatsComponent },   
   { path: 'app-header', component: HeaderComponent },
-  { path: 'historique', component: HistoriqueComponent },
+  { path: 'historique/:id_user', component: HistoriqueComponent },
   { path: 'avis', component: AvisComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profil', component: ProfilComponent },
