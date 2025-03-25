@@ -17,7 +17,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactComponent } from './components/contact/contact.component';
-import { RdvComponent } from './components/rdv/rdv.component'; 
+import { RdvComponent } from './components/rdv/rdv.component';
+import { StatsComponent } from './components/stats/stats.component'; 
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { RdvComponent } from './components/rdv/rdv.component';
     AvisComponent,
     DashboardComponent,
     ContactComponent,
-    RdvComponent
+    RdvComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

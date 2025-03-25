@@ -1,38 +1,47 @@
-<br><br><br><br><br><div class="calendar">
-    <div class="calendar__picture">
-      <h2>{{ selectedDate | date: 'd MMMM' }}</h2>
-      <h3>{{ selectedDate | date: 'yyyy' }}</h3>
+<br><br><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier de Rendez-vous</title>
+</head>
+<body>
+    <div class="calendar">
+        <div class="calendar__picture">
+            <h2>{{ selectedDate | date: 'd MMMM' }}</h2>
+            <h3>{{ selectedDate | date: 'yyyy' }}</h3>
+        </div>
+    
+        <div class="calendar__date">
+            <div class="calendar__day">L</div>
+            <div class="calendar__day">M</div>
+            <div class="calendar__day">M</div>
+            <div class="calendar__day">J</div>
+            <div class="calendar__day">V</div>
+            <div class="calendar__day">S</div>
+            <div class="calendar__day">D</div>
+    
+            <div *ngFor="let day of days; let i = index" 
+                (click)="selectDay(day)"
+                [class.selected]="isSelected(day)">
+                {{ day.date | date: 'd' }}
+            </div>
+        </div>
+    
+        <div *ngIf="selectedDate" class="time-selector">
+            <h3>Sélectionner l'heure</h3>
+            <div class="time-options">
+                <button *ngFor="let hour of hours" (click)="selectTime(hour)">
+                    {{ hour }}
+                </button>
+            </div>
+        </div>
+    
+        <div *ngIf="selectedTime" class="confirmation">
+            <h3>Rendez-vous confirmé</h3>
+            <p>Vous avez réservé pour le {{ selectedDate | date: 'd MMMM yyyy' }} à {{ selectedTime }}.</p>
+            <button (click)="confirmRdv()">Confirmer</button>
+        </div>
     </div>
-  
-    <div class="calendar__date">
-      <div class="calendar__day">L</div>
-      <div class="calendar__day">M</div>
-      <div class="calendar__day">M</div>
-      <div class="calendar__day">J</div>
-      <div class="calendar__day">V</div>
-      <div class="calendar__day">S</div>
-      <div class="calendar__day">D</div>
-  
-      <div *ngFor="let day of days; let i = index" 
-        (click)="selectDay(day)"
-        [class.selected]="isSelected(day)">
-        {{ day.date | date: 'd' }}
-      </div>
-    </div>
-  
-    <div *ngIf="selectedDate" class="time-selector">
-      <h3>Sélectionner l'heure</h3>
-      <div class="time-options">
-        <button *ngFor="let hour of hours" (click)="selectTime(hour)">
-          {{ hour }}
-        </button>
-      </div>
-    </div>
-  
-    <div *ngIf="selectedTime" class="confirmation">
-      <h3>Rendez-vous confirmé</h3>
-      <p>Vous avez réservé pour le {{ selectedDate | date: 'd MMMM yyyy' }} à {{ selectedTime }}.</p>
-      <button (click)="confirmRdv()">Confirmer</button>
-    </div>
-  </div>
-  
+</body>
+</html>

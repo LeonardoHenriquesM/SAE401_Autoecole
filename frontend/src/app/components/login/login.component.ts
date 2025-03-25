@@ -9,45 +9,26 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginData = { id_user: '', password: '' };
-  apiUrl = 'https://api401.alwaysdata.net/backend/api/src/login/login.php';
+  apiUrl = 'http://localhost:8000/backend/api/login'; //URL de l'API
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
     console.log('Tentative de connexion avec les données :', this.loginData);
-    const headers = { 'Content-Type': 'application/json' };
-  
-    this.http.post(this.apiUrl, this.loginData, {
-      headers: { 'Content-Type': 'application/json' },
-      responseType: 'text'
-    }).subscribe(
-      (responseText) => {
-        try {
-          const response = JSON.parse(responseText);
-          console.log('Réponse reçue :', response);
-
-          // Vérification si l'utilisateur est valide
-          if (response.id_user != null) {
-            localStorage.setItem('id_user', response.id_user);
-
-            // Vérification du type d'utilisateur
-            if (response.type === 'admin') {
-              this.router.navigate(['/dashboard']); // Redirection vers le tableau de bord admin
-            } else if (response.type === 'eleve') {
-              this.router.navigate(['/historique']); // Redirection vers le tableau de bord élève
-            }
-          } else {
-            alert('Identifiants incorrects');
-          }
-        } catch (e) {
-          console.error('Réponse non valide JSON', responseText);
-          alert('Erreur serveur (réponse invalide)');
+    this.http.post<any>(this.apiUrl, this.loginData).subscribe(
+      response => {
+        console.log('Réponse reçue :', response);
+        if (response.success) {
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/dashboard']);
+        } else {
+          alert('Identifiant ou mot de passe incorrect.');
         }
       },
       error => {
         console.error('Erreur de connexion', error);
-        alert('Identifiants incorrects');
+        alert('Erreur de connexion au serveur. Vérifiez la console pour plus de détails.');
       }
     );
-  }
+  }  
 }

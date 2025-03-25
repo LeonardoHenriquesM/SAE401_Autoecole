@@ -10,9 +10,11 @@ import { AvisComponent } from './components/avis/avis.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RdvComponent } from './components/rdv/rdv.component';
+import { StatsComponent } from './components/stats/stats.component';
 
 const routes: Routes = [
   { path: 'app-home', component: HomeComponent },    
+  { path: 'stats', component: StatsComponent },   
   { path: 'app-header', component: HeaderComponent },
   { path: 'historique', component: HistoriqueComponent },
   { path: 'avis', component: AvisComponent },
