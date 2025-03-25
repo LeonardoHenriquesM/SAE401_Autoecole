@@ -8,45 +8,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginData = { prenom: '', password: '' };  // Changement de id_user en prenom
+  loginData = { prenom: '', password: '' };
   apiUrl = 'https://api401.alwaysdata.net/backend/api/src/login/login.php';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
     console.log('Tentative de connexion avec les données :', this.loginData);
-
+    const headers = { 'Content-Type': 'application/json' };
+  
     this.http.post(this.apiUrl, this.loginData, {
       headers: { 'Content-Type': 'application/json' },
+      withCredentials: true, 
       responseType: 'text'
     }).subscribe(
       (responseText) => {
+        console.log('Réponse brute :', responseText); // Affichez la réponse brute ici
         try {
           const response = JSON.parse(responseText);
-          console.log('Réponse reçue :', response);
-
-          if (response.id_user != null) {
-            localStorage.setItem('id_user', response.id_user);
-            localStorage.setItem('prenom', response.prenom);  // Stocker le prénom
-
-            // Redirection selon le type d'utilisateur
-            if (response.type === 'admin') {
-              this.router.navigate(['/dashboard']);
-            } else if (response.type === 'eleve') {
-              this.router.navigate(['/historique']);
-            }
-          } else {
-            alert('Identifiants incorrects');
-          }
+          console.log('Réponse analysée :', response);
+          // Traitement de la réponse
         } catch (e) {
-          console.error('Réponse non valide JSON', responseText);
-          alert('Erreur serveur (réponse invalide)');
+          console.error('Erreur lors du parsing JSON', e);
         }
       },
       error => {
-        console.error('Erreur de connexion', error);
-        alert('Identifiants incorrects');
+        console.error('Erreur HTTP:', error);
+        alert('Erreur de connexion');
       }
-    );
-  }
+    );    
+  }  
 }

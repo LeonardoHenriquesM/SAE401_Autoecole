@@ -14,7 +14,7 @@ import { RdvComponent } from './components/rdv/rdv.component';
 const routes: Routes = [
   { path: 'app-home', component: HomeComponent },    
   { path: 'app-header', component: HeaderComponent },
-  { path: 'historique', component: HistoriqueComponent },
+  { path: 'historique/:id_user', component: HistoriqueComponent },
   { path: 'avis', component: AvisComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profil', component: ProfilComponent },
