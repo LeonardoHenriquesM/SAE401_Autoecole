@@ -1,17 +1,9 @@
 <?php
-// Headers CORS et JSON
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json; charset=utf-8");
-
-// Gérer la requête OPTIONS (préflight)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+// Démarrer la session
+session_start();
 
 // Inclusion de la BDD
+require_once "../../config/config_cors.php";
 require_once "../../config/connexion_db.php";
 
 // Vérifier la méthode
@@ -51,6 +43,9 @@ try {
     ob_clean();
 
     if ($admin && $password === $admin['password']) {
+        // Stocker les informations de l'admin dans la session
+        $_SESSION['id_user'] = $admin['id_user'];
+        $_SESSION['type'] = 'admin'; // On précise qu'il est un admin
         echo json_encode([
             "message" => "Connexion réussie",
             "type"    => "admin",
@@ -59,6 +54,9 @@ try {
             "prenom"  => $admin['Prenom']
         ]);
     } elseif ($eleve && $password === $eleve['password']) {
+        // Stocker les informations de l'élève dans la session
+        $_SESSION['id_user'] = $eleve['id_user'];
+        $_SESSION['type'] = 'eleve'; // On précise qu'il est un élève
         echo json_encode([
             "message" => "Connexion réussie",
             "type"    => "eleve",
