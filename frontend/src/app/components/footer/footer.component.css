@@ -53,8 +53,13 @@ footer {
   color: white;
   font-size: 24px;
   transition: 0.3s;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 90%;
+  background-color: #333;
 }
 
 .social-icons a:hover {
   color: #ffd700;
+  background-color: #555;
 }
