@@ -10,7 +10,7 @@ import { Chart } from 'chart.js/auto';
 })
 export class HistoriqueComponent implements OnInit {
   apiUrl = 'https://api401.alwaysdata.net/backend/api/src/historique.php';
-  id_user = localStorage.getItem('id_user'); // Récupération de l'ID utilisateur stocké au login
+  id_user = localStorage.getItem('id_user');
   messageErreur: string | null = null;
   
   statistiques = {
@@ -33,30 +33,30 @@ export class HistoriqueComponent implements OnInit {
 
   chargerHistorique() {
     if (!this.id_user) {
-      alert("Utilisateur non connecté !");
-      this.router.navigate(['/login']);
-      return;
+      this.messageErreur = "L'ID utilisateur est manquant.";
+      return; // Empêcher la requête si l'ID utilisateur est incorrect
     }
+    
 
-    this.http.get(`${this.apiUrl}?id_user=${this.id_user}`).subscribe(
+    this.http.get(`${this.apiUrl}?id_user=${this.id_user}`, {
+      withCredentials: true  // Très important pour envoyer le cookie PHP
+    }).subscribe(
       (data: any) => {
-        // Vérifie si la réponse contient un message d'erreur
         if (data && data.message) {
-          this.messageErreur = data.message;  // Afficher l'erreur dans l'UI
+          this.messageErreur = data.message;
           console.error("Erreur depuis le serveur :", data.message);
         } else {
-          // Affichage des données lorsque tout va bien
           this.statistiques = data.stats;
           this.testsRecents = data.tests;
           this.generateChart();
         }
       },
       (error) => {
-        // Affiche l'erreur détaillée dans la console
         console.error("Erreur HTTP:", error);
         this.messageErreur = 'Une erreur s\'est produite lors du chargement des données.';
       }
     );
+        
   }
 
   generateChart() {
