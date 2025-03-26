@@ -10,10 +10,11 @@ if (!isset($_GET['id_user'])) {
 $id_user = $_GET['id_user'];
 
 $query = "SELECT 
-          (COUNT(*) / (SELECT COUNT(*) FROM test WHERE id_user = :id)) * 100 AS taux_reussite, 
-          COUNT(*) AS tests_passes, 
-          AVG(score) AS score_moyen
-        FROM test WHERE id_user = :id AND score >= 35";
+    (COUNT(CASE WHEN score >= 35 THEN 1 END) / (SELECT COUNT(*) FROM test WHERE id_user = :id AND score IS NOT NULL)) * 100 AS taux_reussite, 
+    COUNT(*) AS tests_passes, 
+    AVG(score) AS score_moyen
+FROM test WHERE id_user = :id AND score IS NOT NULL;
+";
 
 $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $id_user]);

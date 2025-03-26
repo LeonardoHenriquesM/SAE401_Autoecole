@@ -16,5 +16,5 @@ export class ProfilComponent {
     adresse: '10 rue des Lilas, 75000 Paris',
     numeroDossier: '123456',
     dateInscription: '01/01/2024'
-  }
-};
+  };
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ export class LoginComponent {
 
   onSubmit() {
     console.log('Tentative de connexion avec les données :', this.loginData);
+
+    // Faire la requête HTTP
     const headers = { 'Content-Type': 'application/json' };
   
     this.http.post(this.apiUrl, this.loginData, {
@@ -38,7 +41,7 @@ export class LoginComponent {
             if (response.type === 'admin') {
               this.router.navigate(['/dashboard']); // Redirection vers le dashboard de l'admin
             } else if (response.type === 'eleve') {
-              this.router.navigate([`/historique/${response.id_user}`]); // Redirection vers l'historique de l'élève
+              this.router.navigate([`/historique`]); // Redirection vers l'historique de l'élève
             }
           } else {
             alert('Echec de connexion : ' + response.message); // Affiche le message d'erreur

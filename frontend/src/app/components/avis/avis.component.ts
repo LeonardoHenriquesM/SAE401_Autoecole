@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 declare var $: any; // Import jQuery
 
 interface Avis {

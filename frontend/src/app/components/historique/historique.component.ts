@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';  // Importer ActivatedRoute
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { Chart } from 'chart.js/auto';
 
 @Component({
@@ -28,11 +29,19 @@ export class HistoriqueComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Récupérer l'ID utilisateur depuis l'URL
-    this.route.paramMap.subscribe(params => {
-      this.id_user = params.get('id_user');  // Récupérer l'ID utilisateur depuis l'URL
-      this.chargerHistorique();  // Charger l'historique après récupération de l'ID
-    });
+    // Vérifier si l'utilisateur est connecté en récupérant l'ID depuis localStorage
+    this.id_user = localStorage.getItem('id_user');
+
+    // Si l'ID utilisateur n'est pas dans localStorage, essayer de le récupérer depuis l'URL
+    if (!this.id_user) {
+      this.route.paramMap.subscribe(params => {
+        this.id_user = params.get('id_user');
+        this.chargerHistorique();
+      });
+    } else {
+      // Si l'ID est trouvé dans le localStorage, charger l'historique
+      this.chargerHistorique();
+    }
   }
 
   chargerHistorique() {
@@ -61,19 +70,21 @@ export class HistoriqueComponent implements OnInit {
         try {
           const response = JSON.parse(jsonResponse); // Maintenant, on parse le JSON propre
           console.log('Réponse analysée :', response);
-          this.statistiques.tauxReussite = parseFloat(response.stats.taux_reussite);
-          this.statistiques.testsPasses = parseInt(response.stats.tests_passes, 10);
-          this.statistiques.scoreMoyen = parseFloat(response.stats.score_moyen);
-          this.testsRecents = response.tests;
-          this.generateChart();
+          //Donnés pour les stats de l'historique
+          this.statistiques.tauxReussite = parseFloat(response.stats.taux_reussite); // Le taux de réussite
+          this.statistiques.testsPasses = parseInt(response.stats.tests_passes, 10);// Le nombre de test passés
+          this.statistiques.scoreMoyen = parseFloat(response.stats.score_moyen); // Le score moyen
+          this.testsRecents = response.tests; // Touts les test récents sont récupérés par cette ligne
+          this.statistiques.peutPasserExamen = this.testsRecents.some(test => test.score >= 35); // Défini si l'élève peut passer l'examen (si au moins un score > 35)
+          this.generateChart(); // Cette ligne ci génère notre graphique
         } catch (e) {
-          console.error("Erreur lors du parsing JSON :", e);
-          this.messageErreur = 'Erreur lors du traitement des données.';
+          console.error("Erreur lors du parsing JSON :", e); // Débuggage
+          this.messageErreur = 'Erreur lors du traitement des données.'; // Message d'erreur pour de débuggage
         }
       },
       (error) => {
-        console.error("Erreur HTTP:", error);
-        this.messageErreur = 'Une erreur s\'est produite lors du chargement des données.';
+        console.error("Erreur HTTP:", error); //Débuggage
+        this.messageErreur = 'Une erreur s\'est produite lors du chargement des données.'; // Msg d'erreur pour le débuggage
       }
     );
   }
