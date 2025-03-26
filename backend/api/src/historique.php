@@ -13,7 +13,7 @@ $query = "SELECT
           (COUNT(*) / (SELECT COUNT(*) FROM test WHERE id_user = :id)) * 100 AS taux_reussite, 
           COUNT(*) AS tests_passes, 
           AVG(score) AS score_moyen
-        FROM test WHERE id_user = :id AND score >= 32";
+        FROM test WHERE id_user = :id AND score >= 35";
 
 $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $id_user]);
