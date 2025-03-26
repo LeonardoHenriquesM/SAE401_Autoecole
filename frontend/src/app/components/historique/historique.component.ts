@@ -66,7 +66,7 @@ export class HistoriqueComponent implements OnInit {
           this.statistiques.testsPasses = parseInt(response.stats.tests_passes, 10);// Le nombre de test passés
           this.statistiques.scoreMoyen = parseFloat(response.stats.score_moyen); // Le score moyen
           this.testsRecents = response.tests; // Touts les test récents sont récupérés par cette ligne
-          this.statistiques.peutPasserExamen = this.testsRecents.some(test => test.score > 35); // Défini si l'élève peut passer l'examen (si au moins un score > 35)
+          this.statistiques.peutPasserExamen = this.testsRecents.some(test => test.score >= 35); // Défini si l'élève peut passer l'examen (si au moins un score > 35)
           this.generateChart(); // Cette ligne ci génère notre graphique
         } catch (e) {
           console.error("Erreur lors du parsing JSON :", e); // Débuggage

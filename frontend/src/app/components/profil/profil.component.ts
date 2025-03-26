@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit {
   isEditing: boolean = false;
   profil = {
     prenom: 'Jean',
@@ -17,6 +18,18 @@ export class ProfilComponent {
     numeroDossier: '123456',
     dateInscription: '01/01/2024'
   };
+  id_user: string | null = null;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Récupérer l'ID utilisateur depuis le localStorage
+    this.id_user = localStorage.getItem('id_user');
+    if (!this.id_user) {
+      // Si l'ID utilisateur n'est pas trouvé, rediriger vers la page de login
+      this.router.navigate(['/login']);
+    }
+  }
 
   toggleEdit(): void {
     this.isEditing = !this.isEditing;

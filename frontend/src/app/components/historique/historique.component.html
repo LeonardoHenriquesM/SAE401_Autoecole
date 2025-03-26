@@ -16,7 +16,7 @@
         </p>
       </div>
       <div *ngIf="statistiques.peutPasserExamen" class="examen-ok">
-        ✅ <a routerLink="/rdv" class="rdv-link">Félicitations ! Vous êtes éligible pour passer l'examen. Cliquez ici pour prendre un rendez-vous.</a>
+        ✅ <a routerLink="/rdv" class="rdv-link">Félicitations vous avez eu 35 bonnes réponses ou plus à un de vos tests! Vous êtes éligible pour passer l'examen. <br>Cliquez ici pour prendre un rendez-vous.</a>
       </div>
       <div *ngIf="!statistiques.peutPasserExamen" class="examen-non">
         ❌ Vous n'êtes pas encore éligible à l'examen. Continuez vos révisions !
@@ -27,7 +27,7 @@
     <h2>Derniers tests effectués</h2>
     <br>
     <ul >
-      <li *ngFor="let testItem of testsRecents" (click)="afficherDetails(testItem)" class="test-card">
+      <li *ngFor="let testItem of testsRecents" class="test-card">
          Test du {{ testItem.date_test }} : {{ testItem.score }}/40
       </li>
     </ul>

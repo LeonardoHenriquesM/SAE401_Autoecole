@@ -16,7 +16,7 @@
       </div>
       <ul *ngIf="!menuOpen">
         <li>
-          <a routerLink="/historique">Historique</a>
+          <a routerLink="/historique/:id_user">Historique</a>
         </li>
         <li>
           <a routerLink="/stats">Statistiques</a>
@@ -37,7 +37,7 @@
     <div class="menubar" [ngClass]="{'active': menuOpen}">
       <ul>
         <li>
-          <a routerLink="/historique" >Historique</a>
+          <a routerLink="/historique/:id_user" >Historique</a>
         </li>
         <li>
           <a routerLink="/stats"  (click)="closeMenu()">Statistiques</a>
