@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,7 +9,24 @@ import { AuthService } from '../../services/auth.service';
   
 })
 
-export class SupportComponent {
+export class SupportComponent implements OnInit {
+  
+//Déclaration de la variable permettant l'authentification
+estAuthentifie: boolean = false;
+
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
+  ngOnInit(): void {
+    // Vérifie si l'utilisateur est authentifié
+    this.estAuthentifie = this.authService.estAuthentifie();
+    console.log('Est authentifié:', this.estAuthentifie);  // Ajoutez un log pour vérifier
+  
+    // Si l'utilisateur n'est pas authentifié, redirige vers la page de login
+    if (!this.estAuthentifie) {
+      console.log('Utilisateur non authentifié, redirection vers login');
+      this.router.navigate(['/login']);
+      alert("Vous n'êtes pas authentifié, veuillez vous connecter");
+    }
+  }  
 }
 
 document.addEventListener("DOMContentLoaded", () => {

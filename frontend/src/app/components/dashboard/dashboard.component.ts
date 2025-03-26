@@ -15,11 +15,25 @@ export class DashboardComponent implements OnInit {
   candidatsFiltres: any[] = [];
   searchQuery: string = '';
   nouveauCandidat: any = {};
+  estAuthentifie: boolean = false;
+  estAdmin: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.chargerCandidats();  // Charge les candidats au démarrage
+    this.estAuthentifie = this.authService.estAuthentifie();
+    this.estAdmin = this.authService.estAdmin();
+
+    // Si l'utilisateur n'est pas authentifié, redirige vers la page de login
+    if (!this.estAuthentifie) {
+      this.router.navigate(['/login']);
+    }
+
+    // Si l'utilisateur n'est pas admin, redirige vers une autre page ou affiche un message d'erreur
+    if (this.estAuthentifie && !this.estAdmin) {
+      this.router.navigate(['/login']);
+    }
   }
 
   // Méthode pour charger les candidats depuis l'API

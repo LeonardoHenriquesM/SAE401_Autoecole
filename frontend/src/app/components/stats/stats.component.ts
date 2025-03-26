@@ -10,11 +10,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class StatsComponent implements OnInit {
   public chart: any;
+    
+      //Déclaration de la variable permettant l'authentification
+      estAuthentifie: boolean = false;
 
-  constructor() {}
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
+
 
   ngOnInit() {
     this.createChart();
+      // Vérifie si l'utilisateur est authentifié
+      this.estAuthentifie = this.authService.estAuthentifie();
+      // + redirection vers login
+      if (!this.estAuthentifie) {
+        this.router.navigate(['/login']);
+        alert("Vous n'êtes pas authentifié, veuillez vous connecter")
+    }
   }
 
   createChart() {
@@ -54,4 +65,5 @@ export class StatsComponent implements OnInit {
       totalElement.textContent = `📌 Nombre total de candidats concernés : ${totalCandidats}`;
     }
   }
+  
 }

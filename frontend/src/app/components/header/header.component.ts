@@ -10,8 +10,7 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
   menuOpen = false;  // Variable pour contrôler l'état du menu
 
-  // Le service doit être injecté comme une propriété publique
-  constructor(public authService: AuthService, private router: Router) {}  // Assurez-vous que c'est 'public' ici
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
 
   // Fonction pour basculer l'état du menu
   toggleMenu() {
@@ -22,14 +21,9 @@ export class HeaderComponent {
   closeMenu() {
     this.menuOpen = false;
   }
-
-  // Fonction de déconnexion
-  logout() {
-    this.authService.seDeconnecter();  // Appeler la méthode de déconnexion
-  }
-  deconnexion(): void {
-    // Appeler la méthode seDeconnecter du service pour effacer les informations de l'utilisateur
+  deconnecter() {
+    // Appel méthode pour effacer les données utilisateur + redirection
     this.authService.seDeconnecter();
-    this.router.navigate(['/login']);
-  }
+    this.router.navigate(['login']);
+  } 
 }

@@ -32,7 +32,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'rdv', component: RdvComponent },
   { path: 'support', component: SupportComponent },
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

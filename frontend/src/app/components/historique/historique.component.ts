@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { Chart } from 'chart.js/auto';
 
 @Component({

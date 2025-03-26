@@ -8,6 +8,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./rdv.component.css']
 })
 export class RdvComponent {
+      
+      //Déclaration de la variable permettant l'authentification
+      estAuthentifie: boolean = false;
+
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
+
+  ngOnInit(): void {
+    // Vérifie si l'utilisateur est authentifié
+    this.estAuthentifie = this.authService.estAuthentifie();
+    // + redirection vers login
+    if (!this.estAuthentifie) {
+      this.router.navigate(['/login']);
+      alert("Vous n'êtes pas authentifié, veuillez vous connecter")
+    }
+  }
+
   days = [
     { date: new Date('2025-03-01') },
     { date: new Date('2025-03-02') },
@@ -60,4 +76,5 @@ export class RdvComponent {
   isSelected(day: any) {
     return this.selectedDate && this.selectedDate.getDate() === day.date.getDate();
   }
+  
 }

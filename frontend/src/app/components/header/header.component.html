@@ -29,7 +29,7 @@
         </li>
 
         <li *ngIf="authService.estAuthentifie()">
-          <a href="javascript:void(0)" (click)="logout()">Se déconnecter</a>
+          <a href="javascript:void(0)" (click)="deconnecter()">Se déconnecter</a>
         </li>
       </ul>
       <div class="hamburger" (click)="toggleMenu()">
@@ -55,7 +55,7 @@
           <a routerLink="/profil" (click)="closeMenu()">Profil</a>
         </li>
         <li>
-          <a routerLink="/login" (click)="deconnexion()">Deconnexion</a>
+          <button (click)="deconnecter()">Déconnexion</button>
         </li>
       </ul>
     </div>

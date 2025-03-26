@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AdminHeaderComponent {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
 
   menuOpen = false; // Variable pour contrôler l'état du menu
 

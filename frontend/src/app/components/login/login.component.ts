@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,46 +15,36 @@ export class LoginComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(): void {
     console.log('Tentative de connexion avec les données :', this.loginData);
-
-    // Faire la requête HTTP
-    const headers = { 'Content-Type': 'application/json' };
-  
-    this.http.post(this.apiUrl, this.loginData, {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true, 
-      responseType: 'text'
-    }).subscribe(
-      (responseText) => {
-        console.log('Réponse brute :', responseText); // Affichez la réponse brute ici
-        try {
-          const response = JSON.parse(responseText);
-          console.log('Réponse analysée :', response);
-          
-          // Vérification si la connexion est réussie
-          if (response.message && response.message.includes("Connexion réussie")) { // Correction ici
-            // Stocker les informations de l'utilisateur dans le localStorage
-            localStorage.setItem('id_user', response.id_user);
-            localStorage.setItem('user_type', response.type);
-            
-            // Redirection en fonction du rôle de l'utilisateur
-            if (response.type === 'admin') {
-              this.router.navigate(['/dashboard']); // Redirection vers le dashboard de l'admin
-            } else if (response.type === 'eleve') {
-              this.router.navigate([`/historique`]); // Redirection vers l'historique de l'élève
-            }
-          } else {
-            alert('Echec de connexion : ' + response.message); // Affiche le message d'erreur
-          }
-        } catch (e) {
-          console.error('Erreur lors du parsing JSON', e);
-        }
-      },
-      error => {
+    
+    this.http.post<any>(this.apiUrl, this.loginData, {
+      responseType: 'json'
+    }).pipe(
+      catchError(error => {
         console.error('Erreur HTTP:', error);
         alert('Erreur de connexion');
+        return throwError(error);
+      })
+    ).subscribe(
+      (response: any) => {
+        console.log('Réponse brute :', response);
+        if (response && response.message && response.message.includes("Connexion réussie")) {
+          localStorage.setItem('id_user', response.id_user);
+          localStorage.setItem('user_type', response.type);
+          
+          // Redirection
+          if (response.type === 'admin') {
+            this.router.navigate(['/dashboard']);
+            console.log(localStorage.setItem('id_user', response.id_user));
+          } else if (response.type === 'eleve') {
+            console.log(localStorage.setItem('id_user', response.id_user));
+            this.router.navigate(['/historique']);
+          }
+        } else {
+          alert('Échec de connexion : ' + response.message);
+        }
       }
-    );    
-  }  
+    );
+  }
 }

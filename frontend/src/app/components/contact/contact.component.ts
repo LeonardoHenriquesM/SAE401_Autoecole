@@ -8,7 +8,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
+      
+      //Déclaration de la variable permettant l'authentification
+      estAuthentifie: boolean = false;
 
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
+  ngOnInit(): void {
+    // Vérifie si l'utilisateur est authentifié
+    this.estAuthentifie = this.authService.estAuthentifie();
+    // + redirection vers login
+    if (!this.estAuthentifie) {
+      this.router.navigate(['/login']);
+      alert("Vous n'êtes pas authentifié, veuillez vous connecter")
+    }
+  }
   // Définir un objet pour stocker les valeurs du formulaire
   formData = {
     name: '',

@@ -19,16 +19,18 @@ export class ProfilComponent implements OnInit {
     numeroDossier: '123456',
     dateInscription: '01/01/2024'
   };
-  id_user: string | null = null;
+    //Déclaration de la variable permettant l'authentification
+  estAuthentifie: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
 
   ngOnInit(): void {
-    // Récupérer l'ID utilisateur depuis le localStorage
-    this.id_user = localStorage.getItem('id_user');
-    if (!this.id_user) {
-      // Si l'ID utilisateur n'est pas trouvé, rediriger vers la page de login
+    // Vérifie si l'utilisateur est authentifié
+    this.estAuthentifie = this.authService.estAuthentifie();
+    // + redirection vers login
+    if (!this.estAuthentifie) {
       this.router.navigate(['/login']);
+      alert("Vous n'êtes pas authentifié, veuillez vous connecter")
     }
   }
 
@@ -41,4 +43,5 @@ export class ProfilComponent implements OnInit {
     console.log('Profil sauvegardé', this.profil);
     // Ici, on pourrait ajouter une requête HTTP pour sauvegarder les modifications dans une base de données
   }
+  
 }

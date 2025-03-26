@@ -22,6 +22,7 @@ export class AuthService {
   seDeconnecter(): void {
     localStorage.removeItem('id_user');
     localStorage.removeItem('user_type');
+    console.log("FONCTION SE DECONNECTER ACTIVE")
   }
 
   // Obtenir l'ID de l'utilisateur

@@ -21,12 +21,24 @@ export class AvisComponent implements OnInit, AfterViewInit {
   nouvelAvis: Avis = { note: 5, prenom: '', nom: '', date: this.getTodayDate(), commentaire: '' };
   badgeMessage: string = '';
   showBadge: boolean = false;
+  
+  //Déclaration des varirables pour l'authentification
+  estAuthentifie: boolean = false;
 
-  constructor() {}
+  constructor(public authService: AuthService, private router: Router) {}  // Constructeur incluant le service d'authentification ainsi que le routeur
 
   ngOnInit(): void {
+
+      // Vérifie si l'utilisateur est authentifié
+      this.estAuthentifie = this.authService.estAuthentifie();
+      // + redirection vers login
+      if (!this.estAuthentifie) {
+        this.router.navigate(['/login']);
+        alert("Vous n'êtes pas authentifié, veuillez vous connecter")
+      }
+
     this.loadAvis();
-  }
+    }
 
   ngAfterViewInit(): void {
     // Initialiser le Datepicker

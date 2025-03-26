@@ -42,19 +42,16 @@
     <div class="menubar" [ngClass]="{'active': menuOpen}">
       <ul>
         <li>
-          <a routerLink="/historique"  (click)="closeMenu()">Historique</a>
-        </li>
-        <li>
           <a routerLink="/dashboard"  (click)="closeMenu()">Dashboard</a>
         </li>
         <li>
-            <a routerLink="/statistiques"  (click)="closeMenu()">Statistiques</a>
+            <a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a>
           </li>
         <li>
-          <a routerLink="/support"  (click)="closeMenu()">Support</a>
+          <a routerLink="/admin-support" (click)="closeMenu()">Support</a>
         </li>
         <li>
-          <a routerLink="/profil"  (click)="closeMenu()">Profil</a>
+          <a routerLink="/admin-profil"  (click)="closeMenu()">Profil</a>
         </li>
         <li>
           <a routerLink="/login" (click)="deconnexion()">Deconnexion</a>
