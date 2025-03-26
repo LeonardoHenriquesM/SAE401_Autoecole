@@ -35,7 +35,7 @@ export class AdminStatsComponent {
         labels: [
           '80% Réussite Code',
           'A déjà eu le Code',
-          'A eu le Permis',
+          'A déjà eu le Permis',
           'Pas encore commencé'
         ],
         datasets: [{

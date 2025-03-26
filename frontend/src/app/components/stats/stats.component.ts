@@ -49,7 +49,7 @@ export class StatsComponent implements OnInit {
     const totalCandidats = data.reduce((acc, val) => acc + val, 0);
     const totalElement = document.getElementById('total-candidats');
     if (totalElement) {
-      totalElement.textContent = `📌 Nombre total de candidats concernés : ${totalCandidats}`;
+      totalElement.textContent = `Nombre total de candidats concernés : ${totalCandidats}`;
     }
   }
 }
