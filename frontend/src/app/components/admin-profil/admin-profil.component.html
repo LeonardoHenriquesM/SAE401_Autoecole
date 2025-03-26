@@ -6,9 +6,8 @@
     </div>
     <ul *ngIf="!menuOpen">
         <li><a routerLink="/dashboard">Dashboard</a></li>
-        <li><a routerLink="/admin-stats">Statistiques</a></li>
-        <li><a routerLink="/admin-support">Support</a></li>
         <li><a routerLink="/admin-profil">Profil</a></li>
+        <li><button class="deco" (click)="deconnecter()">Déconnexion</button></li>
     </ul>
     <div class="hamburger" (click)="toggleMenu()">
         <span class="line"></span>
@@ -20,9 +19,8 @@
 <div class="menubar" [ngClass]="{'active': menuOpen}">
     <ul>
         <li><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></li>
-        <li><a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a></li>
-        <li><a routerLink="/admin-support" (click)="closeMenu()">Support</a></li>
         <li><a routerLink="/admin-profil" (click)="closeMenu()">Profil</a></li>
+        <li><button class="deco" (click)="deconnecter()">Déconnexion</button></li>
     </ul>
 </div>
 

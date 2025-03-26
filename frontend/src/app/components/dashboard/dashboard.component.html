@@ -6,11 +6,9 @@
   </div>
 
   <ul>
-    <li><a routerLink="/historique">Historique</a></li>
     <li><a routerLink="/dashboard">Dashboard</a></li>
-    <li><a routerLink="/stats">Statistiques</a></li>
-    <li><a routerLink="/support">Support</a></li>
-    <li><a routerLink="/profil">Profil</a></li>
+    <li><a routerLink="/admin-profil">Profil</a></li>
+    <li><button class="deco" (click)="deconnecter()">Déconnexion</button></li>
   </ul>
 </nav>
 
@@ -21,29 +19,42 @@
     <form (submit)="ajouterCandidat()">
       <input type="text" placeholder="Nom" [(ngModel)]="nouveauCandidat.nom" name="nom" required />
       <input type="text" placeholder="Prénom" [(ngModel)]="nouveauCandidat.prenom" name="prenom" required />
-      <input type="date" [(ngModel)]="nouveauCandidat.dateNaissance" name="dateNaissance" required />
-      <input type="text" [(ngModel)]="nouveauCandidat.ville" name="ville" required />
-      <input type="date" [(ngModel)]="nouveauCandidat.dateInscription" name="dateInscription" required />
+      <input type="text" placeholder="Ville"[(ngModel)]="nouveauCandidat.ville" name="ville" required />
       <input type="text" placeholder="Numéro de dossier" [(ngModel)]="nouveauCandidat.neph" name="neph" required />
       <input type="email" placeholder="Email" [(ngModel)]="nouveauCandidat.email" name="email" required />
       <input type="password" placeholder="Mot de passe" [(ngModel)]="nouveauCandidat.password" name="password" required />
+      <label for="dateNaissance"><strong>Date de Naissance</strong></label>
+      <input type="date" [(ngModel)]="nouveauCandidat.dateNaissance" name="dateNaissance" required />
+      <label for="dateNaissance"><strong>Date d'Inscription</strong></label>
+      <input type="date" [(ngModel)]="nouveauCandidat.dateInscription" name="dateInscription" required />
       <button type="submit">Ajouter le candidat</button>
     </form>
   </div>
 
-  <!-- Liste des candidats -->
-  <div class="candidats-container">
-    <h2>Candidats</h2>
-    <input type="text" placeholder="Rechercher un candidat" [(ngModel)]="searchQuery" (input)="filtrerCandidats()" />
 
-    <div class="candidats-list">
-      <div *ngFor="let candidat of candidatsFiltres" class="candidat-card">
-        <p>{{ candidat.Nom }} {{ candidat.Prenom }}</p>
-        <p>{{ candidat.Email }}</p>
-      </div>
+<!-- Liste des candidats -->
+<div class="candidats-container">
+  <h2>Candidats</h2>
+  
+  <!-- Champ de recherche par nom -->
+  <input 
+    type="text" 
+    placeholder="Rechercher un candidat" 
+    [(ngModel)]="searchQuery" 
+    (input)="filtrerCandidats()" 
+    style="margin-bottom: 20px; padding: 10px; width: 100%;"
+  />
+
+  <div class="candidats-list">
+    <div *ngFor="let candidat of candidatsFiltres" class="candidat-card">
+      <p>{{ candidat.Nom }} {{ candidat.Prenom }}</p>
+      <p>{{ candidat.Email }}</p>
+      
+      <!-- Bouton pour supprimer le candidat -->
+      <button type="button" (click)="supprimerCandidat(candidat.id_user)">Supprimer</button>
     </div>
-    
-
-    <p class="total-candidats">Total : {{ candidats?.length || 0 }} candidats</p>
   </div>
+
+  <!-- Affichage du nombre total de candidats filtrés -->
+  <p class="total-candidats">Total : {{ candidatsFiltres?.length || 0 }} candidats</p>
 </div>

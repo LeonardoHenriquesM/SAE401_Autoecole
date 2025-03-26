@@ -47,6 +47,56 @@ function ajouterCandidat($pdo) {
     }
 }
 
+// Fonction pour modifier un candidat
+function modifierCandidat($pdo) {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    if (!$data || !isset($data['id'])) {
+        echo json_encode(["error" => "Données invalides"]);
+        return;
+    }
+
+    try {
+        $stmt = $pdo->prepare("UPDATE eleves SET Nom = :nom, Prenom = :prenom, Date_Naissance = :dateNaissance, 
+                               Ville = :ville, Date_Inscription = :dateInscription, NEPH = :neph, Email = :email 
+                               WHERE id_user = :id");
+
+        $stmt->execute([
+            ':id' => $data['id'],
+            ':nom' => $data['nom'],
+            ':prenom' => $data['prenom'],
+            ':dateNaissance' => $data['dateNaissance'],
+            ':ville' => $data['ville'],
+            ':dateInscription' => $data['dateInscription'],
+            ':neph' => $data['neph'],
+            ':email' => $data['email']
+        ]);
+
+        echo json_encode(["success" => "Candidat modifié avec succès"]);
+    } catch (PDOException $e) {
+        echo json_encode(["error" => "Erreur SQL : " . $e->getMessage()]);
+    }
+}
+
+// Fonction pour supprimer un candidat
+function supprimerCandidat($pdo) {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    if (!$data || !isset($data['id_user'])) { // Changer 'id' en 'id_user'
+        echo json_encode(["error" => "Données invalides"]);
+        return;
+    }
+
+    try {
+        $stmt = $pdo->prepare("DELETE FROM eleves WHERE id_user = :id_user");
+        $stmt->execute([':id_user' => $data['id_user']]);
+    
+        echo json_encode(["success" => "Candidat supprimé avec succès"]);
+    } catch (Exception $e) {
+        echo json_encode(["error" => "Erreur lors de la suppression: " . $e->getMessage()]);
+    }    
+}
+
 // Gestion des actions
 switch ($action) {
     case 'getCandidats':
@@ -54,6 +104,9 @@ switch ($action) {
         break;
     case 'ajouterCandidat':
         ajouterCandidat($pdo);
+        break;
+    case 'supprimerCandidat':
+        supprimerCandidat($pdo);
         break;
     default:
         echo json_encode(["error" => "Action invalide"]);

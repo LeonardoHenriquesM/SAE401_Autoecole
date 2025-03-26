@@ -44,4 +44,9 @@ export class AdminProfilComponent {
   closeMenu(): void {
     this.menuOpen = false;
   }
+  deconnecter() {
+    // Appel méthode pour effacer les données utilisateur + redirection
+    this.authService.seDeconnecter();
+    this.router.navigate(['login']);
+  } 
 }

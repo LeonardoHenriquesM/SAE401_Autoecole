@@ -70,19 +70,39 @@ export class DashboardComponent implements OnInit {
       );
   }
 
-  // Méthode pour filtrer les candidats
   filtrerCandidats(): void {
-    if (this.searchQuery) {
-      this.candidatsFiltres = this.candidats.filter(candidat =>
-        candidat.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        candidat.prenom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        candidat.email.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
+    // Si la requête de recherche est vide, on réinitialise le tableau filtré
+    if (this.searchQuery.trim() === '') {
+      this.candidatsFiltres = [...this.candidats]; // Remet tous les candidats
     } else {
-      this.candidatsFiltres = this.candidats;
+      // Filtrage des candidats par nom, prénom ou email
+      this.candidatsFiltres = this.candidats.filter(candidat =>
+        candidat.Nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        candidat.Prenom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        candidat.Email.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
   }
+  
 
+  supprimerCandidat(id_user: number): void {
+    this.http.post(`https://api401.alwaysdata.net/backend/api/src/candidats.php?action=supprimerCandidat`, { id_user: id_user })
+      .pipe(catchError((error) => {
+        console.error('Erreur lors de la suppression du candidat:', error);
+        return throwError(error);
+      }))
+      .subscribe(
+        (response) => {
+          console.log('Réponse de la suppression du candidat:', response);
+          this.chargerCandidats(); // Recharge les candidats après la suppression
+        },
+        (error) => {
+          console.error('Code d\'erreur:', error.status);
+          console.error('Message d\'erreur:', error.message);
+        }
+      );
+  }
+  
   // Gestion des erreurs
   private handleError(error: any): Observable<never> {
     let errorMessage = 'Une erreur est survenue!';
@@ -93,5 +113,11 @@ export class DashboardComponent implements OnInit {
     }
     console.error(errorMessage);
     return throwError(errorMessage);
+  }
+
+  deconnecter() {
+    // Appel méthode pour effacer les données utilisateur + redirection
+    this.authService.seDeconnecter();
+    this.router.navigate(['login']);
   }
 }
