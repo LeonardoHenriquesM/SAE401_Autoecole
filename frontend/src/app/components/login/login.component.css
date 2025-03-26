@@ -115,3 +115,92 @@ video {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
+
+/* Media Queries pour rendre la page responsive */
+
+/* Pour les petits écrans (smartphones) */
+@media screen and (max-width: 600px) {
+    .login-page {
+        flex-direction: column;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .login-info {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .login-container {
+        width: 80%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .login-container h2 {
+        font-size: 20px;
+    }
+
+    .login-container input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Pour les tablettes (écrans entre 600px et 1024px) */
+@media screen and (max-width: 1024px) and (min-width: 601px) {
+    .login-page {
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .login-info {
+        width: 45%;
+    }
+
+    .login-container {
+        width: 50%;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
+
+    .login-container input {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    button {
+        padding: 14px;
+        font-size: 17px;
+    }
+}
+
+/* Pour les grands écrans (ordinateurs de bureau) */
+@media screen and (min-width: 1025px) {
+    .login-page {
+        width: 60%;
+        margin-top: 50px;
+    }
+
+    .login-info {
+        width: 50%;
+    }
+
+    .login-container {
+        width: 40%;
+    }
+}

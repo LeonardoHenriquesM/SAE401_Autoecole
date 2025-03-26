@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js/auto';
+import { Component } from '@angular/core';
+import Chart from 'chart.js/auto';
 
 @Component({
-  selector: 'app-stats',
-  templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.css']
+  selector: 'admin-header',
+  templateUrl: './admin-stats.component.html',
+  styleUrls: ['./admin-stats.component.css']
 })
-export class StatsComponent implements OnInit {
+export class AdminStatsComponent {
   public chart: any;
 
   constructor() {}
@@ -52,4 +52,16 @@ export class StatsComponent implements OnInit {
       totalElement.textContent = `📌 Nombre total de candidats concernés : ${totalCandidats}`;
     }
   }
+  menuOpen = false; // Variable pour contrôler l'état du menu
+
+  // Fonction pour basculer l'état du menu
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  // Fonction pour fermer le menu
+  closeMenu() {
+    this.menuOpen = false;
+  }
 }
+

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrl: './admin-header.component.css'
 })
-export class HeaderComponent {
+export class AdminHeaderComponent {
+
   menuOpen = false; // Variable pour contrôler l'état du menu
 
   // Fonction pour basculer l'état du menu

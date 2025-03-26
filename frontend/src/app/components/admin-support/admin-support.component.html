@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FAQ avec Navbar</title>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <a routerLink="" style="display: inline-block;">
+                <img src="../../../assets/Logo.png" alt="logo" style="cursor: pointer;">
+            </a>
+        </div>
+        <ul *ngIf="!menuOpen">
+            <li><a routerLink="/historique">Historique</a></li>
+            <li><a routerLink="/dashboard">Dashboard</a></li>
+            <li><a routerLink="/admin-stats">Statistiques</a></li>
+            <li><a routerLink="/admin-support">Support</a></li>
+            <li><a routerLink="/admin-profil">Profil</a></li>
+        </ul>
+        <div class="hamburger" (click)="toggleMenu()">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </nav>
+
+    <div class="menubar" [ngClass]="{'active': menuOpen}">
+        <ul>
+            <li><a routerLink="/historique" (click)="closeMenu()">Historique</a></li>
+            <li><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></li>
+            <li><a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a></li>
+            <li><a routerLink="/admin-support" (click)="closeMenu()">Support</a></li>
+            <li><a routerLink="/admin-profil" (click)="closeMenu()">Profil</a></li>
+        </ul>
+    </div>
+
+    <br><br>
+    <div class="faq_3" unique-script-id="w-w-dm-id">
+        <div class="responsive-container-block container">
+            <div class="responsive-container-block faqheading-bg">
+                <div class="heading-content">
+                    <p class="text-blk faq-heading">
+                        Comment pouvons-nous vous aider ?
+                    </p><br><br>
+                    <form class="form-box">
+                        <div class="input-box">
+                            <input class="input" placeholder="Tapez votre question ici">
+                            <span class="search-btn">
+                                <img class="search-svg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/Search.svg">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="responsive-container-block dropdown-container-wrapper">
+                <div class="responsive-container-block dropdown-container">
+                    <p class="text-blk faq-head2">
+                        Questions fréquentes
+                    </p>
+                    <div class="container-block">
+                        
+                        <!-- Génération dynamique des questions -->
+                        <div class="faq" *ngFor="let faq of faqs; trackBy: trackByFaq">
+                            <span class="faq-question-container">
+                                <p class="text-blk faq-questions">
+                                    {{ faq.question }}
+                                </p>
+                                <img class="openimg image-block" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/arrow.svg">
+                            </span>
+                            <div class="answer-box">
+                                <p class="text-blk faq-answer">
+                                    {{ faq.answer }}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire pour ajouter une nouvelle question -->
+            <div class="faq-form">
+                <h3>Ajouter une Question</h3>
+                <input type="text" [(ngModel)]="newQuestion" placeholder="Nouvelle question">
+                <textarea [(ngModel)]="newAnswer" placeholder="Réponse"></textarea>
+                <button (click)="addFaq()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

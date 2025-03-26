@@ -17,7 +17,11 @@ import { AvisComponent } from './components/avis/avis.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RdvComponent } from './components/rdv/rdv.component';
-import { StatsComponent } from './components/stats/stats.component'; 
+import { StatsComponent } from './components/stats/stats.component';
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { AdminProfilComponent } from './components/admin-profil/admin-profil.component';
+import { AdminSupportComponent } from './components/admin-support/admin-support.component';
+import { AdminStatsComponent } from './components/admin-stats/admin-stats.component'; 
 
 
 @NgModule({
@@ -33,7 +37,11 @@ import { StatsComponent } from './components/stats/stats.component';
     DashboardComponent,
     ContactComponent,
     RdvComponent,
-    StatsComponent
+    StatsComponent,
+    AdminHeaderComponent,
+    AdminProfilComponent,
+    AdminSupportComponent,
+    AdminStatsComponent
   ],
   imports: [
     BrowserModule,

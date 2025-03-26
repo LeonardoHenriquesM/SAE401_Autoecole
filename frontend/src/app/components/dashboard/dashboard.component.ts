@@ -6,13 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+  menuOpen: boolean = false;
   searchQuery: string = '';
-  candidats = [
-    { nom: 'Thibault', prenom: 'Mirador', email: 'thibault@email.com' },
-    { nom: 'Alice', prenom: 'Dupont', email: 'alice@email.com' },
-    { nom: 'Jean', prenom: 'Martin', email: 'jean@email.com' }
-  ];
-  candidatsFiltres = [...this.candidats];
+
+  // Initialisation des données pour éviter les erreurs
+  candidats: any[] = [];
+  candidatsFiltres: any[] = [];
 
   nouveauCandidat = {
     nom: '',
@@ -26,15 +25,19 @@ export class DashboardComponent {
     typePermis: ''
   };
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
   ajouterCandidat() {
-    if (
-      this.nouveauCandidat.nom &&
-      this.nouveauCandidat.prenom &&
-      this.nouveauCandidat.email
-    ) {
+    if (this.nouveauCandidat.nom && this.nouveauCandidat.prenom) {
       this.candidats.push({ ...this.nouveauCandidat });
       this.candidatsFiltres = [...this.candidats];
-      this.nouveauCandidat = {
+      this.nouveauCandidat = {  // Réinitialisation
         nom: '',
         prenom: '',
         email: '',
@@ -49,8 +52,10 @@ export class DashboardComponent {
   }
 
   filtrerCandidats() {
-    this.candidatsFiltres = this.candidats.filter(c =>
-      (c.nom + ' ' + c.prenom).toLowerCase().includes(this.searchQuery.toLowerCase())
+    this.candidatsFiltres = this.candidats.filter(candidat =>
+      candidat.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      candidat.prenom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      candidat.email.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
 }
