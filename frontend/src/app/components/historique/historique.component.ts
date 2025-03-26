@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';  // Importer ActivatedRoute
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { Chart } from 'chart.js/auto';
 
 @Component({
@@ -28,11 +29,19 @@ export class HistoriqueComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Récupérer l'ID utilisateur depuis l'URL
-    this.route.paramMap.subscribe(params => {
-      this.id_user = params.get('id_user');  // Récupérer l'ID utilisateur depuis l'URL
-      this.chargerHistorique();  // Charger l'historique après récupération de l'ID
-    });
+    // Vérifier si l'utilisateur est connecté en récupérant l'ID depuis localStorage
+    this.id_user = localStorage.getItem('id_user');
+
+    // Si l'ID utilisateur n'est pas dans localStorage, essayer de le récupérer depuis l'URL
+    if (!this.id_user) {
+      this.route.paramMap.subscribe(params => {
+        this.id_user = params.get('id_user');
+        this.chargerHistorique();
+      });
+    } else {
+      // Si l'ID est trouvé dans le localStorage, charger l'historique
+      this.chargerHistorique();
+    }
   }
 
   chargerHistorique() {

@@ -15,12 +15,13 @@ import { AdminProfilComponent } from './components/admin-profil/admin-profil.com
 import { AdminSupportComponent } from './components/admin-support/admin-support.component';
 import { AdminStatsComponent } from './components/admin-stats/admin-stats.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   { path: 'stats', component: StatsComponent },   
   { path: 'app-header', component: HeaderComponent },
   { path: 'app-footer', component: FooterComponent },
-  { path: 'historique/:id_user', component: HistoriqueComponent },
+  { path: 'historique', component: HistoriqueComponent },
   { path: 'avis', component: AvisComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profil', component: ProfilComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [AuthService],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

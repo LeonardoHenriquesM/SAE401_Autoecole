@@ -5,46 +5,28 @@
     </a>
   </div>
 
-  <!-- Vérification de menuOpen pour éviter les erreurs -->
-  <ul *ngIf="menuOpen === false">
+  <ul>
     <li><a routerLink="/historique">Historique</a></li>
     <li><a routerLink="/dashboard">Dashboard</a></li>
-    <li><a routerLink="/admin-stats">Statistiques</a></li>
-    <li><a routerLink="/admin-support">Support</a></li>
-    <li><a routerLink="/admin-profil">Profil</a></li>
+    <li><a routerLink="/stats">Statistiques</a></li>
+    <li><a routerLink="/support">Support</a></li>
+    <li><a routerLink="/profil">Profil</a></li>
   </ul>
-
-  <div class="hamburger" (click)="toggleMenu()">
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
-  </div>
 </nav>
-
-<div class="menubar" [ngClass]="{'active': menuOpen}">
-  <ul>
-    <li><a routerLink="/historique" (click)="closeMenu()">Historique</a></li>
-    <li><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></li>
-    <li><a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a></li>
-    <li><a routerLink="/admin-support" (click)="closeMenu()">Support</a></li>
-    <li><a routerLink="/admin-profil" (click)="closeMenu()">Profil</a></li>
-  </ul>
-</div>
 
 <div class="container">
   <!-- Formulaire d'ajout d'un candidat -->
   <div class="form-container">
     <h2>Inscription candidat</h2>
-    <form (ngSubmit)="ajouterCandidat()">
+    <form (submit)="ajouterCandidat()">
       <input type="text" placeholder="Nom" [(ngModel)]="nouveauCandidat.nom" name="nom" required />
       <input type="text" placeholder="Prénom" [(ngModel)]="nouveauCandidat.prenom" name="prenom" required />
-      <input type="email" placeholder="Email" [(ngModel)]="nouveauCandidat.email" name="email" required />
       <input type="date" [(ngModel)]="nouveauCandidat.dateNaissance" name="dateNaissance" required />
-      <input type="text" placeholder="Téléphone" [(ngModel)]="nouveauCandidat.telephone" name="telephone" required />
-      <input type="text" placeholder="Adresse" [(ngModel)]="nouveauCandidat.adresse" name="adresse" required />
-      <input type="text" placeholder="Numéro de dossier" [(ngModel)]="nouveauCandidat.numeroDossier" name="numeroDossier" required />
+      <input type="text" [(ngModel)]="nouveauCandidat.ville" name="ville" required />
       <input type="date" [(ngModel)]="nouveauCandidat.dateInscription" name="dateInscription" required />
-      <input type="text" placeholder="Type de permis" [(ngModel)]="nouveauCandidat.typePermis" name="typePermis" required />
+      <input type="text" placeholder="Numéro de dossier" [(ngModel)]="nouveauCandidat.neph" name="neph" required />
+      <input type="email" placeholder="Email" [(ngModel)]="nouveauCandidat.email" name="email" required />
+      <input type="password" placeholder="Mot de passe" [(ngModel)]="nouveauCandidat.password" name="password" required />
       <button type="submit">Ajouter le candidat</button>
     </form>
   </div>
@@ -56,10 +38,11 @@
 
     <div class="candidats-list">
       <div *ngFor="let candidat of candidatsFiltres" class="candidat-card">
-        <p>{{ candidat.nom }} {{ candidat.prenom }}</p>
-        <p>{{ candidat.email }}</p>
+        <p>{{ candidat.Nom }} {{ candidat.Prenom }}</p>
+        <p>{{ candidat.Email }}</p>
       </div>
     </div>
+    
 
     <p class="total-candidats">Total : {{ candidats?.length || 0 }} candidats</p>
   </div>
