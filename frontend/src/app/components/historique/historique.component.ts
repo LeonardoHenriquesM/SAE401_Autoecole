@@ -61,19 +61,21 @@ export class HistoriqueComponent implements OnInit {
         try {
           const response = JSON.parse(jsonResponse); // Maintenant, on parse le JSON propre
           console.log('Réponse analysée :', response);
-          this.statistiques.tauxReussite = parseFloat(response.stats.taux_reussite);
-          this.statistiques.testsPasses = parseInt(response.stats.tests_passes, 10);
-          this.statistiques.scoreMoyen = parseFloat(response.stats.score_moyen);
-          this.testsRecents = response.tests;
-          this.generateChart();
+          //Donnés pour les stats de l'historique
+          this.statistiques.tauxReussite = parseFloat(response.stats.taux_reussite); // Le taux de réussite
+          this.statistiques.testsPasses = parseInt(response.stats.tests_passes, 10);// Le nombre de test passés
+          this.statistiques.scoreMoyen = parseFloat(response.stats.score_moyen); // Le score moyen
+          this.testsRecents = response.tests; // Touts les test récents sont récupérés par cette ligne
+          this.statistiques.peutPasserExamen = this.testsRecents.some(test => test.score > 35); // Défini si l'élève peut passer l'examen (si au moins un score > 35)
+          this.generateChart(); // Cette ligne ci génère notre graphique
         } catch (e) {
-          console.error("Erreur lors du parsing JSON :", e);
-          this.messageErreur = 'Erreur lors du traitement des données.';
+          console.error("Erreur lors du parsing JSON :", e); // Débuggage
+          this.messageErreur = 'Erreur lors du traitement des données.'; // Message d'erreur pour de débuggage
         }
       },
       (error) => {
-        console.error("Erreur HTTP:", error);
-        this.messageErreur = 'Une erreur s\'est produite lors du chargement des données.';
+        console.error("Erreur HTTP:", error); //Débuggage
+        this.messageErreur = 'Une erreur s\'est produite lors du chargement des données.'; // Msg d'erreur pour le débuggage
       }
     );
   }
