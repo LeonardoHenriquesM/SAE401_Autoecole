@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Responsive Navbar</title>
-    <link rel="stylesheet" type="text/css" href="./header.component.css" />
   </head>
   <body>
     <nav>
@@ -19,13 +18,16 @@
           <a routerLink="/historique">Historique</a>
         </li>
         <li>
-          <a routerLink="/stats">Statistiques</a>
+          <a routerLink="/dashboard">Dashboard</a>
         </li>
         <li>
-          <a routerLink="/support">Support</a>
+          <a routerLink="/admin-stats">Statistiques</a>
         </li>
         <li>
-          <a routerLink="/profil">Profil</a>
+          <a routerLink="/admin-support">Support</a>
+        </li>
+        <li>
+          <a routerLink="/admin-profil">Profil</a>
         </li>
       </ul>
       <div class="hamburger" (click)="toggleMenu()">
@@ -37,18 +39,29 @@
     <div class="menubar" [ngClass]="{'active': menuOpen}">
       <ul>
         <li>
-          <a routerLink="/historique" >Historique</a>
+          <a routerLink="/historique"  (click)="closeMenu()">Historique</a>
         </li>
         <li>
-          <a routerLink="/stats"  (click)="closeMenu()">Statistiques</a>
+          <a routerLink="/dashboard"  (click)="closeMenu()">Dashboard</a>
         </li>
         <li>
-          <a routerLink="/support"  (click)="closeMenu()">Support</a>
+            <a routerLink="/admin-stats"  (click)="closeMenu()">Statistiques</a>
+          </li>
+        <li>
+          <a routerLink="/admin-support"  (click)="closeMenu()">Support</a>
         </li>
         <li>
-          <a routerLink="/profil"  (click)="closeMenu()">Profil</a>
+          <a routerLink="/admin-profil"  (click)="closeMenu()">Profil</a>
         </li>
       </ul>
     </div>
+    <br><br><br><div class="stats-container">
+        <h2>Statistiques des Candidats</h2>
+        <div class="chart-wrapper">
+          <canvas id="canvas"></canvas>
+        </div>
+        <p id="total-candidats" class="total-info"></p>
+      </div><br><br><br>
+      
   </body>
 </html>

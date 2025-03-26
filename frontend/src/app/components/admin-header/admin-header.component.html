@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Responsive Navbar</title>
-    <link rel="stylesheet" type="text/css" href="./header.component.css" />
   </head>
   <body>
     <nav>
@@ -19,13 +18,16 @@
           <a routerLink="/historique">Historique</a>
         </li>
         <li>
+          <a routerLink="/dashboard">Dashboard</a>
+        </li>
+        <li>
           <a routerLink="/stats">Statistiques</a>
         </li>
         <li>
           <a routerLink="/support">Support</a>
         </li>
         <li>
-          <a routerLink="/profil">Profil</a>
+          <a routerLink="/admin-profil">Profil</a>
         </li>
       </ul>
       <div class="hamburger" (click)="toggleMenu()">
@@ -37,11 +39,14 @@
     <div class="menubar" [ngClass]="{'active': menuOpen}">
       <ul>
         <li>
-          <a routerLink="/historique" >Historique</a>
+          <a routerLink="/historique"  (click)="closeMenu()">Historique</a>
         </li>
         <li>
-          <a routerLink="/stats"  (click)="closeMenu()">Statistiques</a>
+          <a routerLink="/dashboard"  (click)="closeMenu()">Dashboard</a>
         </li>
+        <li>
+            <a routerLink="/statistiques"  (click)="closeMenu()">Statistiques</a>
+          </li>
         <li>
           <a routerLink="/support"  (click)="closeMenu()">Support</a>
         </li>

@@ -1,35 +1,66 @@
-<br><br><br><br><br>    
+<nav>
+  <div class="logo">
+    <a routerLink="/" style="display: inline-block;">
+      <img src="../../../assets/Logo.png" alt="logo" style="cursor: pointer;" />
+    </a>
+  </div>
+
+  <!-- Vérification de menuOpen pour éviter les erreurs -->
+  <ul *ngIf="menuOpen === false">
+    <li><a routerLink="/historique">Historique</a></li>
+    <li><a routerLink="/dashboard">Dashboard</a></li>
+    <li><a routerLink="/admin-stats">Statistiques</a></li>
+    <li><a routerLink="/admin-support">Support</a></li>
+    <li><a routerLink="/admin-profil">Profil</a></li>
+  </ul>
+
+  <div class="hamburger" (click)="toggleMenu()">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </div>
+</nav>
+
+<div class="menubar" [ngClass]="{'active': menuOpen}">
+  <ul>
+    <li><a routerLink="/historique" (click)="closeMenu()">Historique</a></li>
+    <li><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></li>
+    <li><a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a></li>
+    <li><a routerLink="/admin-support" (click)="closeMenu()">Support</a></li>
+    <li><a routerLink="/admin-profil" (click)="closeMenu()">Profil</a></li>
+  </ul>
+</div>
+
 <div class="container">
-    <!-- Formulaire d'ajout d'un candidat -->
-    <div class="form-container">
-      <h2>Inscription candidat</h2>
-      <form (ngSubmit)="ajouterCandidat()">
-        <input type="text" placeholder="Nom" [(ngModel)]="nouveauCandidat.nom" name="nom" required />
-        <input type="text" placeholder="Prénom" [(ngModel)]="nouveauCandidat.prenom" name="prenom" required />
-        <input type="email" placeholder="Email" [(ngModel)]="nouveauCandidat.email" name="email" required />
-        <input type="date" [(ngModel)]="nouveauCandidat.dateNaissance" name="dateNaissance" required />
-        <input type="text" placeholder="Téléphone" [(ngModel)]="nouveauCandidat.telephone" name="telephone" required />
-        <input type="text" placeholder="Adresse" [(ngModel)]="nouveauCandidat.adresse" name="adresse" required />
-        <input type="text" placeholder="Numéro de dossier" [(ngModel)]="nouveauCandidat.numeroDossier" name="numeroDossier" required />
-        <input type="date" [(ngModel)]="nouveauCandidat.dateInscription" name="dateInscription" required />
-        <input type="text" placeholder="Type de permis" [(ngModel)]="nouveauCandidat.typePermis" name="typePermis" required />
-        <button type="submit">Ajouter le candidat</button>
-      </form>
-    </div>
-  
-    <!-- Liste des candidats -->
-    <div class="candidats-container">
-      <h2>Candidats</h2>
-      <input type="text" placeholder="Rechercher un candidat" [(ngModel)]="searchQuery" (input)="filtrerCandidats()" />
-  
-      <div class="candidats-list">
-        <div *ngFor="let candidat of candidatsFiltres" class="candidat-card">
-          <p>{{ candidat.nom }} {{ candidat.prenom }}</p>
-          <p>{{ candidat.email }}</p>
-        </div>
+  <!-- Formulaire d'ajout d'un candidat -->
+  <div class="form-container">
+    <h2>Inscription candidat</h2>
+    <form (ngSubmit)="ajouterCandidat()">
+      <input type="text" placeholder="Nom" [(ngModel)]="nouveauCandidat.nom" name="nom" required />
+      <input type="text" placeholder="Prénom" [(ngModel)]="nouveauCandidat.prenom" name="prenom" required />
+      <input type="email" placeholder="Email" [(ngModel)]="nouveauCandidat.email" name="email" required />
+      <input type="date" [(ngModel)]="nouveauCandidat.dateNaissance" name="dateNaissance" required />
+      <input type="text" placeholder="Téléphone" [(ngModel)]="nouveauCandidat.telephone" name="telephone" required />
+      <input type="text" placeholder="Adresse" [(ngModel)]="nouveauCandidat.adresse" name="adresse" required />
+      <input type="text" placeholder="Numéro de dossier" [(ngModel)]="nouveauCandidat.numeroDossier" name="numeroDossier" required />
+      <input type="date" [(ngModel)]="nouveauCandidat.dateInscription" name="dateInscription" required />
+      <input type="text" placeholder="Type de permis" [(ngModel)]="nouveauCandidat.typePermis" name="typePermis" required />
+      <button type="submit">Ajouter le candidat</button>
+    </form>
+  </div>
+
+  <!-- Liste des candidats -->
+  <div class="candidats-container">
+    <h2>Candidats</h2>
+    <input type="text" placeholder="Rechercher un candidat" [(ngModel)]="searchQuery" (input)="filtrerCandidats()" />
+
+    <div class="candidats-list">
+      <div *ngFor="let candidat of candidatsFiltres" class="candidat-card">
+        <p>{{ candidat.nom }} {{ candidat.prenom }}</p>
+        <p>{{ candidat.email }}</p>
       </div>
-      
-      <p class="total-candidats">Total : {{ candidats.length }} candidats</p>
     </div>
-  </div><br><br>
-  
+
+    <p class="total-candidats">Total : {{ candidats?.length || 0 }} candidats</p>
+  </div>
+</div>

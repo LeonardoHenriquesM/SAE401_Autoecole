@@ -1,0 +1,37 @@
+><br><br><br>><br><br><br><nav>
+    <div class="logo">
+        <a routerLink="/" style="display: inline-block;">
+            <img src="../../../assets/Logo.png" alt="logo" style="cursor: pointer;" />
+        </a>
+    </div>
+    <ul *ngIf="!menuOpen">
+        <li><a routerLink="/historique">Historique</a></li>
+        <li><a routerLink="/dashboard">Dashboard</a></li>
+        <li><a routerLink="/admin-stats">Statistiques</a></li>
+        <li><a routerLink="/admin-support">Support</a></li>
+        <li><a routerLink="/admin-profil">Profil</a></li>
+    </ul>
+    <div class="hamburger" (click)="toggleMenu()">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
+</nav>
+
+<div class="menubar" [ngClass]="{'active': menuOpen}">
+    <ul>
+        <li><a routerLink="/historique" (click)="closeMenu()">Historique</a></li>
+        <li><a routerLink="/dashboard" (click)="closeMenu()">Dashboard</a></li>
+        <li><a routerLink="/admin-stats" (click)="closeMenu()">Statistiques</a></li>
+        <li><a routerLink="/admin-support" (click)="closeMenu()">Support</a></li>
+        <li><a routerLink="/admin-profil" (click)="closeMenu()">Profil</a></li>
+    </ul>
+</div>
+
+<div class="profil-container">
+    <h2>Profil</h2><br>
+
+    <div *ngIf="isAdmin" class="admin-message">
+        <h3>Connexion réussie ! <br><br>Vous êtes un administrateur</h3>
+    </div><br>
+</div><br><br><br><br><br><br><br>
