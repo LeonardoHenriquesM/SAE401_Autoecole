@@ -53,7 +53,7 @@ textarea.form-control {
 }
 
 button.btn.btn-primary {
-  background: #ff923c;
+  background: #c50808;
   color: white;
   border: none;
   padding: 0.8rem 2rem;
@@ -63,5 +63,5 @@ button.btn.btn-primary {
 }
 
 button.btn.btn-primary:hover {
-  background: #ff7c2c;
+  background: #750606;
 }

@@ -22,12 +22,14 @@
           <a routerLink="/stats">Statistiques</a>
         </li>
         <li>
+          <a routerLink="/avis">Avis</a>
+        </li>
+        <li>
           <a routerLink="/support">Support</a>
         </li>
         <li>
           <a routerLink="/profil">Profil</a>
         </li>
-
         <li *ngIf="authService.estAuthentifie()">
           <a href="javascript:void(0)" (click)="deconnecter()">Se déconnecter</a>
         </li>
