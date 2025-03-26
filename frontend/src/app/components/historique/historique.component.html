@@ -4,17 +4,17 @@
   </div>
   
   <div class="historique-details">
-    <h1>Historique des Tests</h1>
+    <h1>Historique des Tests Théoriques</h1>
     <div class="stats">
-      <p><strong>Taux de réussite :</strong> {{ statistiques.tauxReussite }}%</p>
-      <p><strong>Tests passés :</strong> {{ statistiques.testsPasses }}</p>
-      <p><strong>Score moyen :</strong> 
-        <span [ngClass]="{'highlight': statistiques.scoreMoyen < 25}">
-          {{ statistiques.scoreMoyen }}/40
-        </span>
-      </p>
-      <p><strong>Score total :</strong> {{ statistiques.scoreTotal }}</p>
-
+      <div class="stats">
+        <p><strong>Taux de réussite :</strong> {{ statistiques.tauxReussite }}%</p>
+        <p><strong>Tests passés :</strong> {{ statistiques.testsPasses }}</p>
+        <p><strong>Score moyen :</strong> 
+          <span [ngClass]="{'highlight': statistiques.scoreMoyen < 25}">
+            {{ statistiques.scoreMoyen }}/40
+          </span>
+        </p>
+      </div>
       <div *ngIf="statistiques.peutPasserExamen" class="examen-ok">
         ✅ <a routerLink="/rdv" class="rdv-link">Félicitations ! Vous êtes éligible pour passer l'examen. Cliquez ici pour prendre un rendez-vous.</a>
       </div>
@@ -22,11 +22,13 @@
         ❌ Vous n'êtes pas encore éligible à l'examen. Continuez vos révisions !
       </div>
     </div>
+    <br>
 
     <h2>Derniers tests effectués</h2>
-    <ul>
+    <br>
+    <ul >
       <li *ngFor="let testItem of testsRecents" (click)="afficherDetails(testItem)" class="test-card">
-        📅 Test du {{ testItem.date }} : {{ testItem.score }}/40
+         Test du {{ testItem.date_test }} : {{ testItem.score }}/40
       </li>
     </ul>
   </div>
